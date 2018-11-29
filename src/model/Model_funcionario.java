@@ -18,38 +18,59 @@ public class Model_funcionario {
     public float limite_aprovacao;
     public String senha;
     public int id_chefe;
-
-    public Model_funcionario[] logar(String nome_selecionado,String senha_selecionado) throws SQLException{
+    public Model_funcionario selecionar(int id_func_selecionado) throws SQLException{
+        String query = "select tipo_func.tipo_funcionario,func.* from funcionarios func natural join tipo_funcionario tipo_func where func.id_funcionario = ?;";
+        Model_funcionario resultado = new Model_funcionario();
+        try (PreparedStatement  pst = conn.prepareStatement(query)) {
+            pst.setInt (1, id_func_selecionado);
+            try {
+                ResultSet rs = pst.executeQuery();
+                while(rs.next()){
+                    resultado.tipo_funcionario = rs.getString("tipo_funcionario");
+                    resultado.id_funcionario = rs.getInt("id_funcionario");
+                    resultado.nome = rs.getString("nome");
+                    resultado.cpf = rs.getString("cpf");
+                    resultado.id_tipo_funcionario = rs.getInt("id_tipo_funcionario");           
+                    if(resultado.id_tipo_funcionario < 3){
+                        resultado.limite_aprovacao = rs.getFloat("limite_aprovacao");
+                    }
+                    if(resultado.id_tipo_funcionario != 1){
+                        resultado.id_chefe = rs.getInt("id_chefe");
+                    }
+                } 
+            }            
+            catch(SQLException e){ System.out.println(e); }
+            if(resultado != null){ return resultado;}
+            else{ return null; }
+        }
+    } 
+    
+    public Model_funcionario logar(String nome_selecionado,String senha_selecionado) throws SQLException{
         String query = "select tipo_fun.tipo_funcionario,func.* from funcionarios func natural join tipo_funcionario tipo_fun where func.nome = ? and func.senha = ?;";
         try (PreparedStatement  pst = conn.prepareStatement(query)) {
             pst.setString (1, nome_selecionado);
             pst.setString (2, senha_selecionado);
-            int tamanho = 128;
-            Model_funcionario[] resultado = new Model_funcionario[tamanho];
-            int counter = 0;  
+            Model_funcionario resultado = new Model_funcionario(); 
             try {
                 ResultSet rs = pst.executeQuery();
                 System.out.println(pst);
-                counter = 0;
                 while (rs.next())
                 {
-                    resultado[counter]= new Model_funcionario();
-                    resultado[counter].tipo_funcionario = rs.getString("tipo_funcionario");
-                    resultado[counter].id_funcionario = rs.getInt("id_funcionario");
-                    resultado[counter].nome = rs.getString("nome");
-                    resultado[counter].cpf = rs.getString("cpf");
-                    resultado[counter].id_tipo_funcionario = rs.getInt("id_tipo_funcionario");           
-                    if(resultado[counter].id_tipo_funcionario < 3){
-                        resultado[counter].limite_aprovacao = rs.getFloat("limite_aprovacao");
+                    resultado.tipo_funcionario = rs.getString("tipo_funcionario");
+                    resultado.id_funcionario = rs.getInt("id_funcionario");
+                    resultado.nome = rs.getString("nome");
+                    resultado.cpf = rs.getString("cpf");
+                    resultado.id_tipo_funcionario = rs.getInt("id_tipo_funcionario");           
+                    if(resultado.id_tipo_funcionario < 3){
+                        resultado.limite_aprovacao = rs.getFloat("limite_aprovacao");
                     }
-                    if(resultado[counter].id_tipo_funcionario != 1){
-                        resultado[counter].id_chefe = rs.getInt("id_chefe");
+                    if(resultado.id_tipo_funcionario != 1){
+                        resultado.id_chefe = rs.getInt("id_chefe");
                     }
-                counter++;
                 }
             }            
             catch(SQLException e){ System.out.println(e); }
-            if(counter !=0){ return resultado;}
+            if(resultado != null){ return resultado;}
             else{ return null; }
         }
     }    
