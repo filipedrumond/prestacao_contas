@@ -5,6 +5,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+        /*                          TESTE
+        Model_funcionario instancia = new Model_funcionario();
+        Model_funcionario insert = new Model_funcionario();
+        insert.id_funcionario = 4;
+        insert.nome = "TESTANDO";
+        insert.cpf = "13162335612";
+        insert.id_tipo_funcionario =3;
+        insert.senha = "123qwe!@#";
+        insert.id_chefe = 1;
+        instancia.deletar(insert);
+        
+        Model_funcionario[] resultados = instancia.listar_todos();
+        for(Model_funcionario resultado : resultados){
+            if(resultado != null){
+                System.out.println(resultado.nome);
+            }
+        }
+        */
+
+
 public class Model_funcionario {
     public Connection conn ;
     public Model_funcionario() {
@@ -53,7 +73,6 @@ public class Model_funcionario {
             Model_funcionario resultado = new Model_funcionario(); 
             try {
                 ResultSet rs = pst.executeQuery();
-                System.out.println(pst);
                 while (rs.next())
                 {
                     resultado.tipo_funcionario = rs.getString("tipo_funcionario");
