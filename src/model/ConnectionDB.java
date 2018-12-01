@@ -185,8 +185,20 @@ insert into tipo_prestacao(tipo_prestacao) values("Reembolso");
 
 
 insert into funcionarios(nome,cpf,id_tipo_funcionario,limite_aprovacao,senha) values("Filipe Dru","13162335612",'1','999999',"123qwe!@#");
-insert into cartoes(validade,nome_impresso,cod_seguranca,id_funcionario) values("05/21","FILIPE D","555",'1');
+insert into funcionarios(nome,cpf,id_tipo_funcionario,limite_aprovacao,senha,id_chefe) values("Medllyn Ta","13162335612",'1','2500',"123qwe!@#",'1');
+
+
+insert into cartoes(validade,nome_impresso,cod_seguranca,id_funcionario) values("05/21","Filipe Dru","555",'1');
+insert into cartoes(validade,nome_impresso,cod_seguranca,id_funcionario) values("05/21","Medllyn Ta","555",'2');
+
 insert into prestacao_contas(id_funcionario,id_tipo_prestacao,id_cartao,id_tipo_despesa,id_tipo_aprovacao,valor,data,descricao)values('1','1','1','1','1','22.10','2018-11-27',"uber ate o trabalho");
+insert into prestacao_contas(id_funcionario,id_tipo_prestacao,id_tipo_despesa,id_tipo_aprovacao,valor,data,descricao)values('2','2','3','2','55.10','2018-12-01',"conta de luz agosto");
+insert into prestacao_contas(id_funcionario,id_tipo_prestacao,id_tipo_despesa,id_tipo_aprovacao,valor,data,descricao)values('2','2','3','1','55.10','2018-12-01',"Almoço");
+
+
+
+
+
 */
 
 

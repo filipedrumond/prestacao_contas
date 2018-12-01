@@ -1,5 +1,3 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -120,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `prestacao_contas`.`prestacao_contas` (
   `id_prestacao_conta` INT NOT NULL AUTO_INCREMENT,
   `id_funcionario` INT(11) NOT NULL,
   `id_tipo_prestacao` INT NOT NULL,
-  `id_cartao` INT(16) NOT NULL,
+  `id_cartao` INT(16),
   `id_tipo_despesa` INT(11) NOT NULL,
   `id_tipo_aprovacao` INT NULL,
   `valor` DOUBLE NULL,
@@ -165,8 +163,10 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+insert into tipo_funcionario(tipo_funcionario) values("SUPER Chefe");
 insert into tipo_funcionario(tipo_funcionario) values("Chefe");
 insert into tipo_funcionario(tipo_funcionario) values("Funcionario Comum");
+
 
 insert into tipo_despesa(tipo_despesa) values("Transporte");
 insert into tipo_despesa(tipo_despesa) values("Alimentacao");
@@ -178,13 +178,22 @@ insert into tipo_aprovacao(tipo_aprovacao) values("Aprovado");
 insert into tipo_aprovacao(tipo_aprovacao) values("Em analize");
 insert into tipo_aprovacao(tipo_aprovacao) values("Negado");
 
+
 insert into tipo_prestacao(tipo_prestacao) values("Prestacao Normal");
 insert into tipo_prestacao(tipo_prestacao) values("Reembolso");
 
 
-
 insert into funcionarios(nome,cpf,id_tipo_funcionario,limite_aprovacao,senha) values("Filipe Dru","13162335612",'1','999999',"123qwe!@#");
-insert into cartoes(validade,nome_impresso,cod_seguranca,id_funcionario) values("05/21","FILIPE D","555",'1');
-insert into prestacao_contas(id_funcionario,id_tipo_prestacao,id_cartao,id_tipo_despesa,id_tipo_aprovacao,valor,data,descricao)values('1','1','1','1','1','22.10','2018-11-27',"uber ate o trabalho");
+insert into funcionarios(nome,cpf,id_tipo_funcionario,limite_aprovacao,senha,id_chefe) values("Medllyn Ta","13162335612",'1','2500',"123qwe!@#",'1');
 
-select * from prestacao_contas;
+
+insert into cartoes(validade,nome_impresso,cod_seguranca,id_funcionario) values("05/21","Filipe Dru","555",'1');
+insert into cartoes(validade,nome_impresso,cod_seguranca,id_funcionario) values("05/21","Medllyn Ta","555",'2');
+
+insert into prestacao_contas(id_funcionario,id_tipo_prestacao,id_cartao,id_tipo_despesa,id_tipo_aprovacao,valor,data,descricao)values('1','1','1','1','1','22.10','2018-11-27',"uber ate o trabalho");
+insert into prestacao_contas(id_funcionario,id_tipo_prestacao,id_tipo_despesa,id_tipo_aprovacao,valor,data,descricao)values('2','2','3','2','55.10','2018-12-01',"conta de luz agosto");
+insert into prestacao_contas(id_funcionario,id_tipo_prestacao,id_tipo_despesa,id_tipo_aprovacao,valor,data,descricao)values('2','2','3','1','55.10','2018-12-01',"Almoço");
+
+
+
+
